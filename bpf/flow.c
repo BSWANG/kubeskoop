@@ -35,7 +35,6 @@ static inline int __do_flow(struct __sk_buff *skb){
 
     struct flow_metrics *metric = bpf_map_lookup_elem(&insp_flow4_metrics, &tuple);
     if(metric){
-        __sync_fetch_and_add(&metric->packets, 1);
         __sync_fetch_and_add(&metric->bytes, skb->len);
     }else {
         struct flow_metrics m = {1, skb->len, 0, 0};
